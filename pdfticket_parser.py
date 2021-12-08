@@ -29,6 +29,12 @@ with open("output.csv", 'w') as csvfile:
 
             # and find the positions in the soup
             auftrag_pos = text.find("Auftragsnummer:")
+
+            # is pdf a bahnticket?
+            if (auftrag_pos) < 0:
+                print("skipping:", fd.name)
+                continue
+
             preis_pos = text.find("Summe")
             datum_pos = text.find("Gültig ab:")
             hinfahrt_pos = text.find("Hinfahrt:")
