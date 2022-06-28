@@ -8,6 +8,6 @@ GNU GPLv3
 
 ## Requisites
 
-* pdfreader
+* PyPDF2
 
-  (install with python -m pip install pdfreader)
+  (install with python -m pip install PyPDF2)
