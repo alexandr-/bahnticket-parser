@@ -1,3 +1,4 @@
+# Changed pdf reader module to PyPDF2 for easier implementation
 from PyPDF2 import PdfReader
 import re
 import csv
