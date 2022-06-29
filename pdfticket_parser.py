@@ -19,7 +19,7 @@ logger.addFilter(NoFontErrorFilter())
 
 with open("output.csv", 'w') as csvFile:
     wr = csv.writer(csvFile,quoting=csv.QUOTE_ALL)
-    wr.writerow(['Datum', 'Auftragsnummer', 'Start', 'Ziel', 'Preis', 'MwSt'])
+    wr.writerow(['Datum', 'Auftragsnummer', 'Strecke', 'Preis', 'MwSt'])
 
     for fileName in glob.glob('*.pdf'):
         with open(os.path.join(os.getcwd(), fileName), 'rb') as fileData:
