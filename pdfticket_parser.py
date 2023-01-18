@@ -72,8 +72,8 @@ with open("output.csv", 'w') as csvFile:
                 strecke = extracted_table[0]
 
                 preis_array = extracted_table[1].split(" ")
-                preis = preis_array[3]
-                mwst = preis_array[1]
+                preis = preis_array[3][:-1]
+                mwst = preis_array[1][:-1]
                 print(f"found: {datum} {auftrag} {strecke[0:30]:<32} {preis:>6}€ {mwst:>6}€\n")
                 
 
@@ -86,7 +86,7 @@ with open("output.csv", 'w') as csvFile:
                 auftrag = text[16+auftrag_pos:16+auftrag_pos+6]
                 print(f"\nOpening ticket number: {auftrag}")
 
-                datum = text[10+datum_pos:10+datum_pos+10]
+                datum = text[10+datum_pos:10+datum_pos+11]
                 preis_array = text[5+preis_pos:5+preis_pos+20].split("€")
                 preis = preis_array[0]
                 if preis == "0,00":
