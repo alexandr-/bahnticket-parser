@@ -46,6 +46,10 @@ with open("output.csv", 'w') as csvFile:
             if (text.find("Online-Ticket") >= 0):
                 type_of_ticket = "national"
 
+            #or a 9 Euro Ticket
+            if (text.find("9-Euro-Ticket") >= 0):
+                type_of_ticket = "9-Euro-Ticket"
+
             if (type_of_ticket == "unknown"):
                 print("no proper type of ticket found - skipping:", fileData.name)
                 continue
@@ -53,9 +57,18 @@ with open("output.csv", 'w') as csvFile:
 
             # Parsing the ticket:
 
-            
-            if (type_of_ticket == "regional"):
+            if (type_of_ticket == "9-Euro-Ticket"):
+                preis = "9"
+                mwst = "0,59"
+                auftrag_pos = text.find("Auftragsnummer")
+                auftrag = text[16+auftrag_pos:16+auftrag_pos+6]
+                datum_pos = text.find("Gültig ab:")
+                datum = text[10+datum_pos:10+datum_pos+11]
+                strecke = "9-Euro-Ticket"
 
+
+
+            if (type_of_ticket == "regional"):
                 #preis, mwst
                 auftrag_pos = text.find("Kaufbeleg zur Auftragsnummer")
                 auftrag = text[29+auftrag_pos:29+auftrag_pos+6]
@@ -89,10 +102,12 @@ with open("output.csv", 'w') as csvFile:
                 datum = text[10+datum_pos:10+datum_pos+11]
                 preis_array = text[5+preis_pos:5+preis_pos+20].split("€")
                 preis = preis_array[0]
+                
                 if preis == "0,00":
                     mwst = "0,00"
                 else:
                     mwst = preis_array[2]
+
                 hinfahrt_array = text[9+hinfahrt_pos:9+hinfahrt_pos+40].split('  ')
                 hinfahrt_von = hinfahrt_array[0]
                 try:
