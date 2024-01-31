@@ -23,7 +23,12 @@ with open("output.csv", 'w') as csvFile:
 
     for fileName in glob.glob('*.pdf'):
         with open(os.path.join(os.getcwd(), fileName), 'rb') as fileData:
-            reader = PdfReader(fileData)
+            try:
+                reader = PdfReader(fileData)
+            except Exception as e:
+                print ("Error on", fileName)
+                raise Exception (e)
+
             page = reader.pages[0]
             # pdfs are a bloody mess, let's join all the parts together
             text = page.extract_text()
@@ -65,8 +70,6 @@ with open("output.csv", 'w') as csvFile:
                 datum_pos = text.find("Gültig ab:")
                 datum = text[10+datum_pos:10+datum_pos+11]
                 strecke = "9-Euro-Ticket"
-
-
 
             if (type_of_ticket == "regional"):
                 #preis, mwst
